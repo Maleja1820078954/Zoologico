@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+<!-- Extiende la plantilla base.html, reutilizando su estructura principal -->
+
+{% block contenido %}
+<!-- Inicia el bloque llamado 'contenido', que será insertado en la plantilla base -->
+
+<h2>
+  {% if form.instance.pk %}Editar{% else %}Agregar{% endif %} Visitantes
+  <!-- Muestra "Editar Producto" si el formulario tiene un objeto existente (pk), si no, muestra "Agregar Producto" -->
+</h2>
+
+<form method="POST">
+  <!-- Inicia un formulario HTML que enviará los datos usando el método POST -->
+
+  {% csrf_token %}
+  <!-- Inserta un token CSRF para proteger el formulario contra ataques de falsificación -->
+
+  {{ form.as_p }}
+  <!-- Renderiza todos los campos del formulario como párrafos (<p>) -->
+
+  <button class="btn btn-primary">Guardar</button>
+  <!-- Botón para enviar el formulario, con clases de Bootstrap para estilo -->
+</form>
+<!-- Finaliza el formulario -->
+
+{% endblock %}
+<!-- Finaliza el bloque 'contenido' -->

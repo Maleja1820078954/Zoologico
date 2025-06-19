@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+<!-- Extiende la plantilla base.html para reutilizar su estructura -->
+
+{% block contenido %}
+<!-- Inicia el bloque de contenido que será insertado en base.html -->
+<h2>Registro</h2>
+<!-- Título de la página de registro -->
+
+<form method="POST">
+  <!-- Inicia el formulario, enviando datos por método POST -->
+  {% csrf_token %}
+  <!-- Token de seguridad para proteger contra ataques CSRF -->
+  {{ form.as_p }}
+  <!-- Renderiza el formulario Django como párrafos -->
+  <button class="btn btn-primary">Registrarse</button>
+  <!-- Botón para enviar el formulario -->
+</form>
+<!-- Fin del formulario -->
+
+{% endblock %}
+<!-- Fin del bloque de contenido -->

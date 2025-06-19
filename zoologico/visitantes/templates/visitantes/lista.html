@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+<!-- Extiende base.html -->
+
+{% block contenido %}
+<!-- Inicia el bloque de contenido -->
+
+<h2>Lista de visitantes</h2>
+<!-- Título de la página -->
+
+<a href="{% url 'agregar_visitantes' %}" class="btn btn-success mb-3"
+  >Agregar visitantes</a
+>
+<!-- Botón para agregar un nuevo producto -->
+
+<table class="table table-bordered">
+  <!-- Inicia la tabla con clases de Bootstrap -->
+  <thead>
+    <tr>
+      <th>Cedula_Visitante</th>
+      <!-- Encabezado: Cedula -->
+      <th>Nombre_Visitante</th>
+      <!-- Encabezado: Nombre -->
+      <th>Edad_Visitante</th>
+      <!-- Encabezado: Edad -->
+      <th>Acciones</th>
+      <!-- Encabezado: Acciones -->
+    </tr>
+  </thead>
+  <tbody>
+    {% for visitante in visitantes %}
+    <tr>
+      <td>{{ visitante.Cedula_Visitante }}</td>
+      <td>{{ visitante.Nombre_Visitante }}</td>
+      <td>{{ visitante.Edad_Visitante }}</td>
+      <td>
+        <a
+          href="{% url 'editar_visitantes' visitante.Cedula_Visitante %}"
+          class="btn btn-warning btn-sm"
+          >Editar</a
+        >
+        <a
+          href="{% url 'eliminar_visitantes' visitante.Cedula_Visitante %}"
+          class="btn btn-danger btn-sm"
+          >Eliminar</a
+        >
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<!-- Fin de la tabla -->
+
+{% endblock %}
+<!-- Fin del bloque de contenido -->
