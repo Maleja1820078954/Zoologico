@@ -25,6 +25,9 @@ urlpatterns = [
     path('logout/', views.cerrar_sesion, name='logout'),
     path('visitantes/', views.lista_visitantes, name='lista_visitantes'),
     path('visitantes/agregar/', views.agregar_visitantes, name='agregar_visitantes'),
-    path('visitantes/editar/<str:Cedula_Visitante>/', views.editar_visitantes, name='editar_visitantes'),
-    path('visitantes/eliminar/<str:Cedula_Visitante>/', views.eliminar_visitantes, name='eliminar_visitantes'),
+    path('visitantes/editar/<str:Cédula_Visitante>/', views.editar_visitantes, name='editar_visitantes'),
+    path('visitantes/eliminar/<str:Cédula_Visitante>/', views.eliminar_visitantes, name='eliminar_visitantes'),
+    #Esta linea sirve para generar un reporte en PDF de visitantes
+    path('visitantes/reporte/pdf/', views.generar_reporte_pdf, name='reporte_pdf'),  
+    path('visitantes/dashboard/', views.dashboard_visitantes, name='dashboard_visitantes'), 
 ]

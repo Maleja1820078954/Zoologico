@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      h1 {
+        text-align: center; /* Corregido: 'text-align' estaba mal escrito */
+      }
+
+      table {
+        width: 100%; /* La tabla ocupa todo el ancho disponible */
+        border-collapse: collapse; /* Colapsa los bordes de la tabla */
+        margin-top: 20px; /* Espacio superior de la tabla */
+      }
+
+      th,
+      td {
+        border: 1px solid #444; /* Borde de las celdas */
+        padding: 6px; /* Espacio interno de las celdas */
+        text-align: left; /* Alineación del texto a la izquierda */
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Reporte de Visitantes</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Cédula del Visitante</th>
+          <th>Nombre del Visitante</th>
+          <th>Edad del Visitante</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for visitante in visitantes %}
+        <!-- Bucle para recorrer los visitantes -->
+        <tr>
+          <td>{{ visitante.Cédula_Visitante }}</td>
+          <td>{{ visitante.Nombre_Visitante }}</td>
+          <td>{{ visitante.Edad_Visitante }}</td>
+        </tr>
+        {% endfor %}
+        <!-- Fin del bucle -->
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -3,6 +3,9 @@ from .models import Visitantes  # Importa el modelo Producto
 from .forms import VisitantesForm, RegistroUsuarioForm  # Importa los formularios personalizados
 from django.contrib.auth import authenticate, login, logout  # Importa funciones de autenticación
 from django.contrib.auth.decorators import login_required  # Importa el decorador para requerir login
+from django.template.loader import get_template    #importar función para cargar plantillas
+from xhtml2pdf import pisa    #Importamos la libreria para generar PDFs
+from django.http import HttpResponse
 
 # Vista de inicio
 def home(request):
@@ -58,8 +61,8 @@ def agregar_visitantes(request):
     return render(request, 'visitantes/form.html', {'form': form})
 
 @login_required
-def editar_visitantes(request, Cedula_Visitante):
-    visitantes = Visitantes.objects.get(Cedula_Visitante=Cedula_Visitante)
+def editar_visitantes(request, Cédula_Visitante):
+    visitantes = Visitantes.objects.get(Cédula_Visitante=Cédula_Visitante)
     form = VisitantesForm(request.POST or None, instance=visitantes)
     if form.is_valid():
         form.save()
@@ -67,7 +70,34 @@ def editar_visitantes(request, Cedula_Visitante):
     return render(request, 'visitantes/form.html', {'form': form})
 
 @login_required
-def eliminar_visitantes(request, Cedula_Visitante):
-    visitantes = Visitantes.objects.get(Cedula_Visitante=Cedula_Visitante)  # Obtiene el visitante por su id
+def eliminar_visitantes(request, Cédula_Visitante):
+    visitantes = Visitantes.objects.get(Cédula_Visitante=Cédula_Visitante)  # Obtiene el visitante por su id
     visitantes.delete()  # Elimina el visitante
     return redirect('lista_visitantes')  # Redirige a la lista de visitantes
+
+def generar_reporte_pdf(request):
+    visitantes = Visitantes.objects.all()  #Obtiene todos los productos
+    template_path= 'visitantes/reporte_pdf.html'#Ruta de la plantilla HTML para el PDF
+    context = {'visitantes' : visitantes} #Contexto con los productos
+    response = HttpResponse(content='application/pdf')  #Crea una respuesta HTTP con tipo PDF
+    response['Content-Disposition']='attachment;filename="reporte_visitantes.pdf"'
+    
+    template =get_template(template_path) #Carga una plantilla
+    html=template.render(context) #Renderizo la plantilla con el contexto
+    
+    pisa_status = pisa.CreatePDF(html, dest=response) #Genera el PDF a partir del html
+    if pisa_status.err : #Si hay un error al generar el PDF
+        return HttpResponse('Hubo un error al generar el PDF', status=500) # Devuelve el error
+    return response #Devuelve el PDF generado
+
+@login_required  # Requiere que el usuario esté autenticado
+def dashboard_visitantes(request):
+    visitantes = Visitantes.objects.all()  # Obtiene todos los visitantes
+
+    nombres = [v.Nombre_Visitante for v in visitantes]  # Usa el campo correcto
+    edades = [v.Edad_Visitante for v in visitantes]     # Campo numérico para el gráfico
+
+    return render(request, 'visitantes/dashboard.html', {
+        'labels': nombres,  # Eje X: nombres de los visitantes
+        'data': edades      # Eje Y: edades
+    })

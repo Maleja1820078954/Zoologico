@@ -14,6 +14,12 @@
   <body>
     <!-- Barra de navegación principal con clases de Bootstrap para estilos -->
     <nav class="navbar navbar-expand-lg navbar dark bg-dark px-5">
+      <a href="{% url 'reporte_pdf' %}" class="btn btn-outline-danger"
+        >Exportar PDF</a
+      >
+      <a href="{% url 'dashboard_visitantes' %}" class="btn btn-outline-info"
+        >Ver Dashboard</a
+      >
       <a class="navbar-brand" href="{% url 'home' %}">Zoologico</a>
       <!-- Enlace principal -->
       <!-- Contenedor para los elementos de navegación, colapsable en pantallas pequeñas -->

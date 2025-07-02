@@ -16,7 +16,7 @@
   <!-- Inicia la tabla con clases de Bootstrap -->
   <thead>
     <tr>
-      <th>Cedula_Visitante</th>
+      <th>Cédula_Visitante</th>
       <!-- Encabezado: Cedula -->
       <th>Nombre_Visitante</th>
       <!-- Encabezado: Nombre -->
@@ -29,17 +29,17 @@
   <tbody>
     {% for visitante in visitantes %}
     <tr>
-      <td>{{ visitante.Cedula_Visitante }}</td>
+      <td>{{ visitante.Cédula_Visitante }}</td>
       <td>{{ visitante.Nombre_Visitante }}</td>
       <td>{{ visitante.Edad_Visitante }}</td>
       <td>
         <a
-          href="{% url 'editar_visitantes' visitante.Cedula_Visitante %}"
+          href="{% url 'editar_visitantes' visitante.Cédula_Visitante %}"
           class="btn btn-warning btn-sm"
           >Editar</a
         >
         <a
-          href="{% url 'eliminar_visitantes' visitante.Cedula_Visitante %}"
+          href="{% url 'eliminar_visitantes' visitante.Cédula_Visitante %}"
           class="btn btn-danger btn-sm"
           >Eliminar</a
         >

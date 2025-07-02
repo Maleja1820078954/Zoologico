@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+<!-- Extiende la plantilla base.html -->
+
+{% block contenido %}
+<!-- Inicia el bloque de contenido -->
+<h2>Dashboard de Visitantes</h2>
+<!-- Título del dashboard -->
+<canvas id="grafico" width="400" height="200"></canvas>
+<!-- Lienzo para el gráfico -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Incluye la librería Chart.js -->
+
+<script>
+  // Obtiene el contexto del canvas para dibujar el gráfico
+  const ctx = document.getElementById('grafico').getContext('2d');
+
+  // Crea una nueva instancia de Chart
+  const grafico = new Chart(ctx, {
+    type: 'bar', // Tipo de gráfico: barras
+    data: {
+      labels: {{ labels|safe }}, // Etiquetas del eje X: nombres de los visitantes
+      datasets: [{
+        label: 'Edad de cada visitante', // Leyenda del dataset
+        data: {{ data|safe }}, // Datos: edades de los visitantes
+        backgroundColor: 'rgba(54, 162, 235, 0.5)', // Color de fondo de las barras
+        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde de las barras
+        borderWidth: 1 // Grosor del borde
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true // Configura el eje Y para que inicie en cero
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}
+<!-- Fin del bloque de contenido -->
